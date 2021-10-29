@@ -11,3 +11,6 @@ tokenizer = AutoTokenizer.from_pretrained("osunlp/ReasonBERT-RoBERTa-base")
 model = AutoModel.from_pretrained("osunlp/ReasonBERT-RoBERTa-base")
 ```
 Note that the tokenizers are identical to BERT/RoBERTa/TAPAS, with the extra `<QUESTION>` token appended in the end. Please refer to our paper for more details.
+
+## Pretraining Data
+The pretraining data for both text-only and hybrid settings are shared on https://zenodo.org/record/5612316.
