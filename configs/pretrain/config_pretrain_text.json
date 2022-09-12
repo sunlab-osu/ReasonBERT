@@ -1,0 +1,41 @@
+{
+    "name": "pretrain_text_roberta_large",
+    "n_gpus": 4,
+    "seed": 123,
+    "arch": {
+        "type": "SentencePairModel",
+        "args": {
+            "bert_version": "roberta-large",
+            "use_all_target": false
+        }
+    },
+    "train_dataset": {
+        "type": "SentencePairDataset",
+        "args": {
+            "urls": "{Path_To_Data}/sentence_pairs_for_pretrain_no_tokenization/{000000..000763}.tar",
+            "shuffle_cache_size": 1000,
+            "batch_size": 25,
+            "max_seq_length": [
+                100,
+                200,
+                512
+            ],
+            "length": 7630000,
+            "num_cores": 1
+        }
+    },
+    "mlm_probability": 0.15,
+    "trainer": {
+        "num_train_epochs": 10,
+        "warmup_steps": 10000,
+        "weight_decay": 0.01,
+        "gradient_accumulation_steps": 3,
+        "learning_rate": 1e-4,
+        "max_grad_norm": 1.0,
+        "logging_steps": 100,
+        "save_steps": 10000,
+        "save_total_limit": 20,
+        "fp16": true
+    },
+    "save_dir": "{Path-To_Output}"
+}

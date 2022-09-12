@@ -10,7 +10,6 @@ Here is an example of the config file
         "type": "SentencePairModelForQA", # The model to use, defined in model/model.py
         "args": {
             "bert_version": "roberta-base", # Base encoder to use
-            "gradient_checkpointing": false
         } # Arguments to initilize the model
     },
     # Tokenizer used for processing the data. Should match with the bert_version. Some PLMs share the same tokenizer so the processed data can be shared as well.

@@ -33,7 +33,6 @@ class SentencePairModel(BaseModel):
         self,
         bert_version="bert-base-uncased",
         vocab_size=None,
-        gradient_checkpointing=False,
         use_all_target=False,
         use_transform=False,
     ):
@@ -43,7 +42,7 @@ class SentencePairModel(BaseModel):
             self.bert = AutoModelForMaskedLM.from_config(config)
         else:
             self.bert = AutoModelForMaskedLM.from_pretrained(
-                bert_version, gradient_checkpointing=gradient_checkpointing
+                bert_version
             )
         if vocab_size is not None:
             self.bert.resize_token_embeddings(vocab_size)
@@ -157,7 +156,6 @@ class HybridPairModel(BaseModel):
         self,
         bert_version="bert-base-uncased",
         vocab_size=None,
-        gradient_checkpointing=False,
         use_all_target=False,
         use_column_row=False,
         agg="mean",
@@ -169,7 +167,6 @@ class HybridPairModel(BaseModel):
         else:
             self.bert = AutoModelForMaskedLM.from_pretrained(
                 bert_version,
-                gradient_checkpointing=gradient_checkpointing,
                 revision="no_reset",
             )
         if vocab_size is not None:
@@ -364,12 +361,11 @@ class SentencePairModelForQA(BaseModel):
         self,
         bert_version="bert-base-uncased",
         vocab_size=None,
-        gradient_checkpointing=False,
         use_transform=False,
     ):
         super().__init__()
         self.bert = AutoModel.from_pretrained(
-            bert_version, gradient_checkpointing=gradient_checkpointing
+            bert_version
         )
         if vocab_size is not None:
             self.bert.resize_token_embeddings(vocab_size)
@@ -454,11 +450,10 @@ class SentencePairModelForPS(BaseModel):
         self,
         bert_version="bert-base-uncased",
         vocab_size=None,
-        gradient_checkpointing=False,
     ):
         super().__init__()
         self.bert = AutoModel.from_pretrained(
-            bert_version, gradient_checkpointing=gradient_checkpointing
+            bert_version
         )
         if vocab_size is not None:
             self.bert.resize_token_embeddings(vocab_size)
@@ -700,12 +695,11 @@ class SimpleQA(BaseModel):
         self,
         bert_version="bert-base-uncased",
         vocab_size=None,
-        gradient_checkpointing=False,
         use_transform=False,
     ):
         super().__init__()
         self.bert = AutoModel.from_pretrained(
-            bert_version, gradient_checkpointing=gradient_checkpointing
+            bert_version
         )
         if vocab_size is not None:
             self.bert.resize_token_embeddings(vocab_size)

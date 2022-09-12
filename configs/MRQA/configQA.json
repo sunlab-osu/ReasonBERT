@@ -13,7 +13,7 @@
     "train_dataset": {
         "type": "MRQADataset",
         "args": {
-            "datadir": "./data/MRQA",
+            "datadir": "{Path_To_Data}",
             "split": "train",
             "sample_num": 1024,
             "neg_ratio": -1,
@@ -24,7 +24,7 @@
     "eval_dataset": {
         "type": "MRQADataset",
         "args": {
-            "datadir": "./data/MRQA",
+            "datadir": "{Path_To_Data}",
             "split": "eval",
             "overwrite": false,
             "skip_first_line": true
@@ -54,7 +54,7 @@
         "per_device_eval_batch_size": 64,
         "evaluation_strategy": "steps"
     },
-    "save_dir": "/local/scratch/deng.595/workspace/hybrid_pretrain/output/MRQA",
+    "save_dir": "{Path_To_Output}",
     "local_pretrained": "",
     "use_our_pretrained": 0,
     "preprocess_only": 0,

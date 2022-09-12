@@ -59,7 +59,7 @@ class BaseTrainer(Trainer):
             loss = loss["loss"]
         return loss
 
-    def _maybe_log_save_evaluate(self, tr_loss, model, trial, epoch):
+    def _maybe_log_save_evaluate(self, tr_loss, model, trial, epoch, ignore_keys_for_eval):
         if self.control.should_log:
             logs: Dict[str, float] = {}
             tr_loss_scalar = tr_loss.item()

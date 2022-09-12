@@ -20,12 +20,14 @@ Dependencies
 ```
 pandas==1.2.4
 torch
-transformers==4.3.3
-webdataset==0.1.40
+transformers==4.14.1
+webdataset==0.2.20
 torch-scatter # You need to install pytorch first, then install the correct version of torch-scatter
 ```
+## Pretraining
+You can pretrain the models with our, or your own pretraining data using `pretrain.py` (for text only setting), and `hybrid_pretrain.py` (for hybrid setting with tables). The configs are under `configs/pretrain`, you need to modify the `batch_size` based on your system configurations, and point the data/output path correctly. A demo script is under `scripts/pretrain.sh`. `xla_spawn.py` can be used to launch pretraining job on Google cloud TPUs, note that you need to set `fp16=false` for TPUs.
 
-## MRQA
+## QA
 You can download the data for MRQA experiments from the [official repo](https://github.com/mrqa/MRQA-Shared-Task-2019). Note that we use the original training data for training (and dev if needed), and the original in-domain dev data for testing. The data directory should be specificed in `configs/MRQA/configQA.json -> datadir`.
 
 We experiment under both few-shot and full-data setting. You can use the script below to run experiments for MRQA. See README under configs for more info.

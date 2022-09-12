@@ -302,7 +302,7 @@ class node_selector:
         urls_this = urls_[self.index::self.num_cores]
         return urls_this
 
-class SentencePairDataset(wds.Dataset):
+class SentencePairDataset(wds.WebDataset):
     def __init__(
         self, tokenizer='bert-base-uncased', urls='', 
         shuffle_cache_size=500, batch_size=20, 
@@ -310,7 +310,7 @@ class SentencePairDataset(wds.Dataset):
         n_gpus=1, length=None, mlm_probability=-1, nonanswerable=True, sample_single=False,
         index=0, num_cores=1
         ):
-        super().__init__(urls, length=length)
+        super().__init__(urls)
         self.node_selection = node_selector(index, num_cores)
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
         self.tokenizer.add_special_tokens({"additional_special_tokens": ["[QUESTION]"]})
@@ -769,7 +769,7 @@ class HybridPairProcessor(SentencePairProcessor):
                 'target_mask': final_target_mask,
             }
 
-class HybridPairDataset(wds.Dataset):
+class HybridPairDataset(wds.WebDataset):
     def __init__(
         self, tokenizer='bert-base-uncased', urls='', 
         shuffle_cache_size=500, batch_size=20, 
@@ -777,7 +777,7 @@ class HybridPairDataset(wds.Dataset):
         n_gpus=1, length=None, mlm_probability=-1,
         index=0, num_cores=1, token_type=False
         ):
-        super().__init__(urls, length=length)
+        super().__init__(urls)
         self.node_selection = node_selector(index, num_cores)
         if 'tapas' in tokenizer:
             self.tokenizer = BertTokenizerFast.from_pretrained(tokenizer)

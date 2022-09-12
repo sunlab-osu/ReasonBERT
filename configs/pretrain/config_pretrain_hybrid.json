@@ -1,0 +1,43 @@
+{
+    "name": "Base_Hybrid_Pair",
+    "n_gpus": 2,
+    "seed": 123,
+    "arch": {
+        "type": "HybridPairModel",
+        "args": {
+            "bert_version": "google/tapas-base",
+            "use_all_target": false,
+            "use_column_row": false
+        }
+    },
+    "train_dataset": {
+        "type": "HybridPairDataset",
+        "args": {
+            "urls": "{Path_To_Data}/table_pairs_for_pretrain_no_tokenization/{000000..000313}.tar",
+            "shuffle_cache_size": 1000,
+            "batch_size": 32,
+            "max_seq_length": [
+                100,
+                200,
+                512
+            ],
+            "length": 3130000,
+            "token_type": true
+        }
+    },
+    "tokenizer": "{Path-To-Tokenizer}",
+    "mlm_probability": 0.15,
+    "trainer": {
+        "num_train_epochs": 10,
+        "warmup_steps": 10000,
+        "weight_decay": 0.01,
+        "gradient_accumulation_steps": 4,
+        "learning_rate": 1e-4,
+        "max_grad_norm": 1.0,
+        "logging_steps": 100,
+        "save_steps": 10000,
+        "save_total_limit": 20,
+        "fp16": true
+    },
+    "save_dir": "{Path_To_Output}"
+}
