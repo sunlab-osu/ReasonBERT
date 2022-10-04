@@ -20,7 +20,7 @@ Dependencies
 ```
 pandas==1.2.4
 torch
-transformers==4.14.1
+transformers==4.3.3
 webdataset==0.2.20
 torch-scatter # You need to install pytorch first, then install the correct version of torch-scatter
 ```
