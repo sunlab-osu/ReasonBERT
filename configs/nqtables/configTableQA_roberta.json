@@ -1,0 +1,75 @@
+{
+    "name": "Table_textQA",
+    "n_gpus": 1,
+    "seed": 123,
+    "arch": {
+        "type": "SentencePairModelForQA",
+        "args": {
+            "bert_version": "roberta-base",
+            "gradient_checkpointing": false
+        }
+    },
+    "tokenizer": "roberta-base",
+    "dataset": "nqtable_textQA-onlytable",
+    "train_dataset": {
+        "type": "MRQADataset",
+        "args": {
+            "datadir": "/local/scratch/deng.595/workspace/hybrid_pretrain/data/TableQA",
+            "split": "train",
+            "neg_ratio": 1,
+            "overwrite": false,
+            "skip_first_line": false,
+            "sample_num": -1
+        }
+    },
+    "eval_dataset": {
+        "type": "MRQADataset",
+        "args": {
+            "datadir": "/local/scratch/deng.595/workspace/hybrid_pretrain/data/TableQA",
+            "split": "eval",
+            "overwrite": false,
+            "skip_first_line": false
+        }
+    },
+    "test_dataset": {
+        "type": "MRQADataset",
+        "args": {
+            "datadir": "/local/scratch/deng.595/workspace/hybrid_pretrain/data/TableQA",
+            "split": "test",
+            "overwrite": false,
+            "skip_first_line": false
+        }
+    },
+    "collator": {
+        "type": "MRQA_collate",
+        "args": {
+            "use_token_type": false
+        }
+    },
+    "trainer_type": {
+        "type": "BaseTrainerForQA",
+        "args": {}
+    },
+    "trainer": {
+        "num_train_epochs": 5,
+        "weight_decay": 0.01,
+        "gradient_accumulation_steps": 2,
+        "learning_rate": 5e-5,
+        "max_grad_norm": 1.0,
+        "warmup_steps": 0.2,
+        "logging_steps": 200,
+        "save_total_limit": 4,
+        "fp16": true,
+        "per_device_train_batch_size": 10,
+        "per_device_eval_batch_size": 64,
+        "evaluation_strategy": "steps",
+        "eval_steps": 0.25,
+        "metric_for_best_model": "f1"
+    },
+    "save_dir": "/local/scratch/deng.595/workspace/hybrid_pretrain/output/nqtables/TableTextQA/roberta",
+    "local_pretrained": "",
+    "use_our_pretrained": 0,
+    "preprocess_only": 0,
+    "do_test": 1,
+    "test_only": 0
+}

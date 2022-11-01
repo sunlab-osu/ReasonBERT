@@ -185,15 +185,10 @@ def main(config, args):
         }
     )
     training_args = TrainingArguments(**config["trainer"])
-
-    collator = config.init_obj(
-        "collator",
-        module_data,
-        tokenizer=train_dataset.tokenizer,
-        q_id=104
-        if "splinter" in config["arch"]["args"]["bert_version"].lower()
-        else None,
-    )
+    extra_args = {"tokenizer": train_dataset.tokenizer}
+    if "splinter" in config["arch"]["args"]["bert_version"].lower():
+        extra_args["q_id"] = 104
+    collator = config.init_obj("collator", module_data, **extra_args)
     trainer = config.init_obj(
         "trainer_type",
         module_trainer,

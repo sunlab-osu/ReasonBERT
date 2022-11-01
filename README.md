@@ -52,6 +52,17 @@ python train.py\
 ```
 *Tips: The results reported in the paper are based on five random runs with seed 1/3/5/7/9. To reproduce the exact same results for our pretrained models, you need to first initialize the model with base PLM (roberta-base or bert-base), then load the weights of ReasonBERT (This is what we do when running the experiments with local pretrained checkpoints). Directly load ReasonBERT(like pass osunlp/ReasonBERT-RoBERTa-base in the script above) will have slightly different results as the random initizlization of QA headers are different.*
 
+## TableQA
+The data for TableQA on nqtables is under `data/nqtables`. We cast TableQA still as extractive QA task, but support using table-based encoder, e.g., tapas or ReasonBERT-tapas. The associated configs are under `configs/nqtables`, just change the `datadir` and `save_dir` accordingly. We use the same architecture, to avoid repeatitive preprocessing, you could download the tokenizer and point `tokenizer` to that location. Use `bert_version` to specify the encoder you want to use.
+
+```
+# This will use the tapas model, and train with 10% of data
+python train.py -c configs/nqtables/configTableQA_tapas.json --run_id 0.1_1 --seed 1 --sample 0.1 --epochs 10 --warmup_steps 1 --eval_steps 3
+
+# This will use basic roberta model, and treat tableQA as regular text QA task
+python train.py -c configs/nqtables/configTableTextQA_roberta.json --run_id 0.1_1 --seed 1 --sample 0.1 --epochs 10 --warmup_steps 1 --eval_steps 3
+```
+
 ## Citation
 ```
 @inproceedings{deng-etal-2021-reasonbert,

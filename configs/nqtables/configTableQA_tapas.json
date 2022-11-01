@@ -1,0 +1,66 @@
+{
+    "name": "Table_QA",
+    "n_gpus": 1,
+    "seed": 123,
+    "arch": {
+        "type": "TableModelForQA",
+        "args": {
+            "bert_version": "google/tapas-base"
+        }
+    },
+    "dataset": "nqtable_row_first",
+    "tokenizer": "/local/scratch/deng.595/workspace/hybrid_pretrain/output/tapas-base",
+    "train_dataset": {
+        "type": "TAPASDatasetForQA",
+        "args": {
+            "datadir": "/local/scratch/deng.595/workspace/hybrid_pretrain/data/TableQA",
+            "split": "train",
+            "neg_ratio": 1.0,
+            "sample_num": -1
+        }
+    },
+    "eval_dataset": {
+        "type": "TAPASDatasetForQA",
+        "args": {
+            "datadir": "/local/scratch/deng.595/workspace/hybrid_pretrain/data/TableQA",
+            "split": "eval"
+        }
+    },
+    "test_dataset": {
+        "type": "TAPASDatasetForQA",
+        "args": {
+            "datadir": "/local/scratch/deng.595/workspace/hybrid_pretrain/data/TableQA",
+            "split": "test"
+        }
+    },
+    "collator": {
+        "type": "TAPASQA_collate",
+        "args": {}
+    },
+    "trainer_type": {
+        "type": "BaseTrainerForQA",
+        "args": {}
+    },
+    "trainer": {
+        "num_train_epochs": 5,
+        "warmup_steps": 0.5,
+        "weight_decay": 0.01,
+        "gradient_accumulation_steps": 2,
+        "learning_rate": 5e-5,
+        "max_grad_norm": 1.0,
+        "logging_steps": 200,
+        "save_total_limit": 5,
+        "fp16": true,
+        "per_device_train_batch_size": 12,
+        "per_device_eval_batch_size": 64,
+        "evaluation_strategy": "steps",
+        "eval_steps": 0.25,
+        "metric_for_best_model": "f1"
+    },
+    "save_dir": "/local/scratch/deng.595/workspace/hybrid_pretrain/output/nqtables/TableQA/tapas",
+    "local_pretrained": "",
+    "use_our_pretrained": 0,
+    "preprocess_only": 0,
+    "test_only": 0,
+    "do_test": 1
+}
