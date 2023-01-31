@@ -15,6 +15,8 @@ Note that the tokenizers are identical to BERT/RoBERTa/TAPAS, with the extra `<Q
 ## Pretraining Data
 The pretraining data for both text-only and hybrid settings are shared on https://zenodo.org/record/5612316.
 
+For details on preparing the pretraining data, please check `data_processing` and the paper.
+
 ## Environment Setup
 Dependencies
 ```

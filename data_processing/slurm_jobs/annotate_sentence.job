@@ -1,0 +1,23 @@
+#!/bin/bash
+#SBATCH --job-name=AnnotateSentence
+#SBATCH --nodes=1 --ntasks-per-node=28
+#SBATCH --time=10:00:00
+#SBATCH --account=PAA0201
+#SBATCH --output=AnnotateSentence.%j
+
+module load spark/2.4.5
+module load python/3.6-conda5.2
+
+
+cp annotate_sentence.py $TMPDIR
+cd $TMPDIR
+
+pip install --user --upgrade spark-nlp==2.6.5
+
+$SPARK_HOME/bin/spark-submit \
+    --packages com.johnsnowlabs.nlp:spark-nlp_2.11:2.6.5 \
+    --executor-memory 8g \
+    --conf "spark.cores.max=48" \
+    --conf "spark.executor.cores=9" \
+    --conf "spark.hadoop.validateOutputSpecs=False" \
+    --driver-memory 64g annotate_sentence.py
