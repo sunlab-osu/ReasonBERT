@@ -1,4 +1,4 @@
-This folder contains the scripts used to prepare the data for pretraining. You can follow the insutructions in `process_article_sentence_only.ipynb` to create the pretraining data for `ReasonBERT-RoBERTa`. Here we summarize the main steps and intermediate files generated in the process.
+This folder contains the scripts used to prepare the data for pretraining. You can follow the insutructions in `process_article_sentence_only.ipynb` to create the pretraining data for `ReasonBERT-RoBERTa`. Here we summarize the main steps and intermediate files generated in the process. Some of the prepared files are shared [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/deng_595_buckeyemail_osu_edu/EsRBBK6mn59Ju-Vg3juzYScB-ZssR9jTPfpU0qxkeIaBgw?e=kVh1Zn).
 
 1. The initial Wikipedia XML dump is processed using the tool developped `https://github.com/idio/json-wikipedia` and converted into json format.
 
